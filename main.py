@@ -2,7 +2,12 @@ import singletonwrapper as stw
 
 test = stw.SingletonCaseWrapper()
 
-test.Search("bowling balls")
+
+test.Search("bowling balls", "name", "q")
+test.Click("name", "btnK")
+test.Click("link_text", "Shopping")
+results = test.GetContentClass('EI11Pd Hb793d', 'h3')
+print(results)
 # results = []
 # content = driver.page_source
 # soup = BeautifulSoup(content, features="html.parser")
@@ -15,4 +20,5 @@ test.Search("bowling balls")
 
 # def main():
 #     searchtopic("Bowling Balls")
+
 
