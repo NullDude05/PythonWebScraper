@@ -10,6 +10,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 chrome = driver.get('https://google.com')
 
+
+def GetPageContent():
+        content = driver.page_source
+        soup = BeautifulSoup(content, features="html.parser")
+        
+        return soup
+
 # Singleton Class
 class SingletonCaseWrapper:
     __instance = None
@@ -28,8 +35,7 @@ class SingletonCaseWrapper:
 
     def GetContentClass(self, class_name, html_tag):
         # Get page source code for bs
-        content = driver.page_source
-        soup = BeautifulSoup(content, features="html.parser")
+        soup = GetPageContent()
 
         results = []
         for element in soup.find_all(attrs={'class': class_name}):
@@ -37,6 +43,17 @@ class SingletonCaseWrapper:
             results.append(name.text)
 
         return results
+
+    
+    def GetContentText(self, class_name):
+        soup = GetPageContent()
+        results = []
+        for element in soup.find_all(attrs={'class': class_name}):
+            results.append(element.text)
+
+        return results
+
+
 
     # Click a Button using Selenium
     def Click(self, attr_name, name_of_attr):
@@ -75,6 +92,7 @@ class SingletonCaseWrapper:
             print("Clicked css selector Button")
         else:
             print("could not find button by attribute")
+
 
         #implement match case statement
         # match attr_name:
